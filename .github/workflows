@@ -1,0 +1,34 @@
+name: Test Ubuntu Runner
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check system
+        run: |
+          echo "=== SYSTEM ==="
+          uname -a
+
+          echo "=== PUBLIC IP ==="
+          curl -4 https://api.ipify.org
+          echo
+
+          echo "=== NETWORK ==="
+          ip addr
+
+          echo "=== ROUTES ==="
+          ip route
+
+          echo "=== USER ==="
+          whoami
+
+          echo "=== PRIVILEGES ==="
+          sudo -n true && echo "sudo available" || echo "sudo requires password"
+          
+      - name: Keep alive
+        run: |
+          sleep 300
